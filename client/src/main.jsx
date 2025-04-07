@@ -1,12 +1,12 @@
-import './style.css'
-import { setupCounter } from './counter.js'
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+import Homepage from './homepage.jsx'
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-  </div>
-`
-
-setupCounter(document.querySelector('#counter'))
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <Homepage />
+    {/* <App /> */}
+  </StrictMode>,
+)

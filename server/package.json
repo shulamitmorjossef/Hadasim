@@ -1,5 +1,5 @@
 {
-  "name": "hadasim",
+  "name": "server",
   "version": "1.0.0",
   "description": "Simpel websit",
   "homepage": "https://github.com/shulamitmorjossef/Hadasim#readme",
@@ -15,7 +15,9 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js"
+
   },
   "dependencies": {
     "express": "^5.1.0",

@@ -21,7 +21,7 @@ function Login(){
             setMessage(response.data.message);
             if(response.data.success){
                 
-                navigate(`/homepage?user_id={resp}`);
+                navigate(`/homepage`);
             }
             else{
                 setError('wrong details');

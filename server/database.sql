@@ -5,7 +5,6 @@ create database super_market;
 \c super_market;
 
 
-
 create table suppliers(
     userName text primary key,
     pass text,

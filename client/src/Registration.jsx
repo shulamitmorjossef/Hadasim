@@ -42,8 +42,6 @@ function Registration(){
   
     setGoods(updatedProductsArray);
   };
-  
-
 
 
   const handleSubmit = async (e) => {
@@ -64,7 +62,7 @@ function Registration(){
     }
 
     try{
-      const response = await axios.post('http://localhost:5000/add-supplier', {
+      const response = await axios.post('http://localhost:5000/registration', {
         userName,
         pass,
         company_id,

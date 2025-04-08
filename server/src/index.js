@@ -64,7 +64,7 @@ app.post('/add-order', async(req, res) =>{
       console.log('not exist product');
       return res.status(404).json({ message: 'Product not found.' });
     }
-    
+    // 
     const min_sum = result.rows[0].min_sum;
 
     if(count < min_sum){

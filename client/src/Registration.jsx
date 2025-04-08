@@ -92,6 +92,7 @@ function Registration(){
            onChange = {(e) => setUserName(e.target.value)} 
            />
         </div>
+        <br />
         <div>
           <label>Password:</label>
           <input
@@ -100,6 +101,7 @@ function Registration(){
             onChange={(e) => setPass(e.target.value)}
           />
         </div>
+        <br />
         <div>
           <label>Company ID:</label>
           <input
@@ -108,6 +110,7 @@ function Registration(){
             onChange={(e) => setCompanyId(e.target.value)}
           />
         </div>
+        <br />
         <div>
           <label>Phone Number:</label>
           <input
@@ -116,6 +119,7 @@ function Registration(){
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </div>
+        <br />
         <div>
           <label>Agent Name:</label>
           <input
@@ -160,7 +164,7 @@ function Registration(){
           Register Supplier
         </button>
       </form>
-      {message && <p> {message }</p>}
+      {message ? <p> {message }</p> : null}
     </div>    
   );
 }

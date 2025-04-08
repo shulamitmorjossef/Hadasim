@@ -20,7 +20,7 @@ function Login(){
             });
             setMessage(response.data.message);
             if(response.data.success){
-                
+                localStorage.setItem('userName', userName)
                 navigate(`/homepage`);
             }
             else{
@@ -48,6 +48,8 @@ function Login(){
                     onChange = { (e) => setUserName(e.target.value)}
                      />
                 </div>
+                <br />
+                
                 <div>
                 <label> Password </label>
                 <input 
@@ -57,9 +59,12 @@ function Login(){
                 />
                 </div>
 
+                <br />
+                <br />
+
                 <button type="submit"> Login supplier </button>
             </form>
-            {message && <p> {message }</p>}
+            {message ? <p> {message }</p> : null}
         </div>
     );
 

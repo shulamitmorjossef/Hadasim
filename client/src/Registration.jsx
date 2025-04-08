@@ -13,9 +13,56 @@ function Registration(){
   const [phone_number, setPhoneNumber] = useState('');
   const [agent_name, setAgentName] = useState('');
   const [message, setMessage] = useState('');
+  const [goods, setGoods] = useState([]);
+
+  const handleAddProduct = () => {
+    const updatedProductsArray = [...goods];
+  
+    const newProduct = {
+      product_name: '',
+      price: 0,
+      min_sum: 0
+    };
+  
+    updatedProductsArray.push(newProduct);
+  
+    setGoods(updatedProductsArray);
+  };
+
+  
+  const handleProductChange = (productIndex, fieldName, newValue) => {
+    const updatedProductsArray = [...goods];
+  
+    let processedValue = newValue;
+    if (fieldName === 'price' || fieldName === 'min_sum') {
+      processedValue = Number(newValue);
+    }
+  
+    updatedProductsArray[productIndex][fieldName] = processedValue;
+  
+    setGoods(updatedProductsArray);
+  };
+  
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!userName || !pass || !company_id || !phone_number || !agent_name) {
+      setMessage('All fields are required.');
+      return;
+    }
+
+    const invalidProduct = goods.some(product => 
+      !product.product_name || product.price <= 0 || product.min_sum <= 0
+    );
+    
+    if (invalidProduct) {
+      setMessage('All product fields must be filled out correctly.');
+      return; 
+    }
+
     try{
       const response = await axios.post('http://localhost:5000/add-supplier', {
         userName,
@@ -23,6 +70,7 @@ function Registration(){
         company_id,
         phone_number,
         agent_name,
+        goods
       });
       setMessage(response.data.message);
       navigate('/homepage')
@@ -78,6 +126,38 @@ function Registration(){
             onChange={(e) => setAgentName(e.target.value)}
           />
         </div>
+
+        <h2>Products</h2>
+        {goods.map((product, index) => (
+          <div key={index} style={{ marginBottom: '10px', borderBottom: '1px solid #ccc' }}>
+            <input
+              type="text"
+              placeholder="Product Name"
+              value={product.product_name}
+              onChange={(e) => handleProductChange(index, 'product_name', e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Price"
+              value={product.price}
+              onChange={(e) => handleProductChange(index, 'price', e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Minimum Quantity"
+              value={product.min_sum}
+              onChange={(e) => handleProductChange(index, 'min_sum', e.target.value)}
+            />
+          </div>
+        ))}
+        <button type="button" onClick={handleAddProduct}>
+          Add Product
+        </button>
+
+        <br /><br />
+
+
+
         <button type="submit">
           Register Supplier
         </button>

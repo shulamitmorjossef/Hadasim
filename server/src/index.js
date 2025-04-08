@@ -8,20 +8,37 @@ const PORT = 5000
 app.use(cors());
 app.use(express.json());
 
+
+
+
+
 app.post('/add-supplier', async (req, res) => {
-  const {userName, pass, company_id, phone_number, agent_name} = req.body;
+  const {userName, pass, company_id, phone_number, agent_name, goods} = req.body;
   try{
-    const result = await pool.query(
+    await pool.query(
       'INSERT INTO suppliers (userName, pass, company_id, phone_number, agent_name) VALUES($1, $2, $3, $4, $5)',
       [userName, pass, company_id, phone_number, agent_name]
     );
-    res.status(200).json({message: 'Supplier added successfully!'});
+    if( Array.isArray(goods)){
+      for( const product of goods){
+        const {product_name, price, min_sum} = product;
+        await pool.query(
+          'INSERT INTO goods (userName, product_name, price, min_sum) VALUES ($1, $2, $3, $4)',
+          [userName, product_name, price, min_sum]
+        );
+      }
+    }
+
+    res.status(200).json({message: 'Supplier and goods added successfully!'});
   }
   catch(error){
     console.log(error);
-    res.status(500).json({ message: 'Error adding supplier to database.' })
+    res.status(500).json({ message: 'Error adding supplier or goods to database.' })
   }
 });
+
+
+
 
 app.post('/login-supplier', async (req, res) => {
   const {userName, pass} = req.body;

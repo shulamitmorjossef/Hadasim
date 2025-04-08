@@ -1,3 +1,7 @@
+הגשת מבחן בית הדסים 5.0 
+
+יש פה תיקיות לכל חלק, כל השאר של חלק 4
+
 To run the application:
 
 1. run database.sql on your postgres

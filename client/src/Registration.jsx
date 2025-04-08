@@ -1,9 +1,12 @@
 
 import React, {useState} from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 function Registration(){
 
+  const navigate = useNavigate();
   const [userName, setUserName] = useState('');
   const [pass, setPass] = useState('');
   const [company_id, setCompanyId] = useState('');
@@ -22,6 +25,8 @@ function Registration(){
         agent_name,
       });
       setMessage(response.data.message);
+      navigate('/homepage')
+
     }
     catch(error){
       setMessage('Error adding supplier');

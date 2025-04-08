@@ -1,62 +1,47 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-
-// function App() {
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     <>
-//       {/* <div> */}
-//         {/* <a href="https://vite.dev" target="_blank"> */}
-//           {/* <img src={viteLogo} className="logo" alt="Vite logo" /> */}
-//         {/* </a> */}
-//         {/* <a href="https://react.dev" target="_blank"> */}
-//           {/* <img src={reactLogo} className="logo react" alt="React logo" /> */}
-//         {/* </a> */}
-//       {/* </div> */}
-//       {/* <h1>Vite + React</h1> */}
-//       {/* <div className="card"> */}
-//         {/* <button onClick={() => setCount((count) => count + 1)}> */}
-//           {/* count is {count} */}
-//         {/* </button> */}
-//         {/* <p> */}
-//           {/* Edit <code>src/App.jsx</code> and save to test HMR */}
-//         {/* </p> */}
-//       {/* </div> */}
-//       {/* <p className="read-the-docs"> */}
-//         {/* Click on the Vite and React logos to learn more */}
-//       {/* </p> */}
-//       <h1>hiiiiiiiiiiiiiiiiiii</h1>
-//     </>
-//   )
-// }
-
-// export default App
-
 
 
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import './App.css';
 import Registration from "./Registration";
+import HomePage from "./HomePage";
+import Login from "./Login.jsx";
 
+function WelcomePage(){
+  return(
+    <div>
+      <h1>Welcome!</h1>
+      <Link to = "/register">
+      <button> Registration </button>
+      </Link>
+      <br/>
+      <br/>
+      <br/>
+      <Link to = "/login">
+      <button> Log-in </button>
+      </Link>
+    </div>
+  );
+}
 
+function AppContent(){
+  return (
+    <div>
+    <Routes>
+      <Route path = "/" element={<WelcomePage />} />
+      <Route path = "/register" element={<Registration/>}/>
+      <Route path = "/login" element={<Login/>}/>
+      <Route path = "/homepage" element={<HomePage/>}/>
+    </Routes>
+    </div>
+  );
+}
 
 function App(){
-
-  return (
-
+  return(
     <Router>
-      <div>
-        <Link to = "/register">
-        <button> Registration </button>
-        </Link>
-        <Routes>
-          <Route path = "/register" element={<Registration/>}/>
-        </Routes>
-      </div>
+      <AppContent />
     </Router>
   );
 }

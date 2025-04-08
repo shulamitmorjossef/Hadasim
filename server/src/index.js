@@ -23,6 +23,26 @@ app.post('/add-supplier', async (req, res) => {
   }
 });
 
+app.post('/login-supplier', async (req, res) => {
+  const {userName, pass} = req.body;
+  try{
+    const result = await pool.query(
+      'SELECT userName, pass FROM suppliers WHERE userName = $1 and pass = $2', [userName, pass]    );
+
+    if(result.rows.length > 0){
+      res.json({success: true, message: 'welcome back!'});
+    }
+    else{
+      res.json({success: false, message: 'User not found' });
+      // res.status(500).json({ message: 'User not found' })
+    }
+  }
+  catch(error){
+    console.error(error);
+    res.status(500).json({ message: 'Server error.' })
+  }
+});
+
 app.get('/suppliers', async (req,res)=>{
   try{
     const result = await pool.query('SELECT * from suppliers');
@@ -33,8 +53,6 @@ app.get('/suppliers', async (req,res)=>{
     res.status(500).send('database error');
   }
 });
-
-
 
 
 app.listen(PORT, ()=>{
